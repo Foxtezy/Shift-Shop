@@ -20,18 +20,23 @@ public class BuyerController {
         this.buyerService = buyerService;
     }
 
-    @GetMapping("/get/login")
+    @GetMapping
     public ResponseEntity<BuyerEntity> getByLogin(@RequestParam String login) {
         return buyerService.findBylogin(login);
     }
 
-    @PostMapping("/post")
+    @PostMapping
     public ResponseEntity<BuyerEntity> saveBuyerEntity(@RequestBody BuyerEntity buyerEntity) {
         return buyerService.saveBuyerEntity(buyerEntity);
     }
 
-    @DeleteMapping("/dell")
+    @DeleteMapping
     public ResponseEntity<String> deleteBuyerEntity(@RequestParam String login) {
         return buyerService.deleteBuyerEntity(login);
+    }
+
+    @GetMapping("/all")
+    public List<BuyerEntity> getAllBuyerEntity(){
+        return buyerService.getAllBuyerEntity();
     }
 }

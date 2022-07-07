@@ -1,6 +1,8 @@
 package com.example.shop.repository.model;
 
 import javax.persistence.*;
+import java.awt.*;
+import java.awt.geom.Point2D;
 
 @Entity
 @Table(name = "Buyers")
@@ -15,6 +17,7 @@ public class BuyerEntity {
 
     @Column(name = "balance", nullable = false)
     private Double balance;
+
 
     public String getLogin() {
         return login;

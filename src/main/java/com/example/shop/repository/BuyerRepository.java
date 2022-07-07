@@ -8,7 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface BuyerRepository extends CrudRepository<BuyerEntity, String> {
-    Optional<BuyerEntity> findBylogin(String login);
+    Optional<BuyerEntity> findBylogin(String login); //есть стандартный поиск в Crud
 
-    //List<BuyerEntity> findFirst5ByFirstNameStartsWithOrderByFirstName(String firstNameStartsWith);
 }
