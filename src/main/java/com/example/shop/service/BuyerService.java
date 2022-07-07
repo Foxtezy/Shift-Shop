@@ -1,7 +1,6 @@
 package com.example.shop.service;
 
 import com.example.shop.repository.model.BuyerEntity;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
 
