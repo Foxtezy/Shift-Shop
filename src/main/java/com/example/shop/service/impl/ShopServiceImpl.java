@@ -1,11 +1,12 @@
 package com.example.shop.service.impl;
 
-import com.example.shop.repository.BuyerRepository;
 import com.example.shop.repository.ShopRepository;
 import com.example.shop.repository.model.ShopEntity;
 import com.example.shop.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -20,6 +21,11 @@ public class ShopServiceImpl implements ShopService {
     }
 
     public List<ShopEntity> getProduct(String ware){
-        return shopRepository.getShopEntityByWareOrderByWare(ware);
+        return shopRepository.getShopEntityByWare(ware);
     }
+
+    public ResponseEntity<Object> updateAmount(Integer amount, String ware, String store){
+        return ResponseEntity.ok(shopRepository.updateAmount(amount, ware, store));
+    }
+
 }

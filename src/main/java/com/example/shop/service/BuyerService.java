@@ -7,7 +7,11 @@ import java.util.List;
 
 public interface BuyerService {
     ResponseEntity<BuyerEntity> findBylogin(String login);
-    ResponseEntity<BuyerEntity> saveBuyerEntity(BuyerEntity buyerEntity);
+    ResponseEntity<Object> saveBuyerEntity(BuyerEntity buyerEntity);
+    ResponseEntity<Object> putBuyerEntity(BuyerEntity buyerEntity);
     ResponseEntity<String> deleteBuyerEntity(String login);
     List<BuyerEntity> getAllBuyerEntity();
+
+    ResponseEntity<Object> reduceBuyerEntityBalance(Double reduce, String login);
+
 }

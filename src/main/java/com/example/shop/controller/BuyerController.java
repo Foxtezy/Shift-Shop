@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @RestController
@@ -25,8 +26,13 @@ public class BuyerController {
     }
 
     @PostMapping
-    public ResponseEntity<BuyerEntity> saveBuyerEntity(@RequestBody BuyerEntity buyerEntity) {
+    public ResponseEntity<Object> saveBuyerEntity(@RequestBody BuyerEntity buyerEntity) {
         return buyerService.saveBuyerEntity(buyerEntity);
+    }
+
+    @PutMapping
+    public ResponseEntity<Object> putBuyerEntity(@RequestBody BuyerEntity buyerEntity){
+        return buyerService.putBuyerEntity(buyerEntity);
     }
 
     @DeleteMapping
@@ -37,5 +43,10 @@ public class BuyerController {
     @GetMapping("/all")
     public List<BuyerEntity> getAllBuyerEntity(){
         return buyerService.getAllBuyerEntity();
+    }
+
+    @PutMapping("/newbalance") //test
+    public ResponseEntity<Object> balance(@RequestParam Double reduce, @RequestParam String login){
+        return buyerService.reduceBuyerEntityBalance(reduce, login);
     }
 }
