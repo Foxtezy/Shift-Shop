@@ -6,8 +6,7 @@ import com.example.shop.service.BuyerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
+import org.springframework.web.client.HttpClientErrorException;
 import java.util.List;
 
 @RestController
@@ -21,23 +20,44 @@ public class BuyerController {
     }
 
     @GetMapping
-    public ResponseEntity<BuyerEntity> getByLogin(@RequestParam String login) {
-        return buyerService.findBylogin(login);
+    public ResponseEntity<Object> getByLogin(@RequestParam String login) {
+        try {
+            return ResponseEntity.ok(buyerService.findBylogin(login));
+        }
+        catch (HttpClientErrorException e){
+            return ResponseEntity.status(e.getStatusCode()).body(e.toString());
+        }
     }
 
     @PostMapping
     public ResponseEntity<Object> saveBuyerEntity(@RequestBody BuyerEntity buyerEntity) {
-        return buyerService.saveBuyerEntity(buyerEntity);
+        try {
+            return ResponseEntity.ok(buyerService.saveBuyerEntity(buyerEntity));
+        }
+        catch (HttpClientErrorException e){
+            return ResponseEntity.status(e.getStatusCode()).body(e.toString());
+        }
     }
 
     @PutMapping
     public ResponseEntity<Object> putBuyerEntity(@RequestBody BuyerEntity buyerEntity){
-        return buyerService.putBuyerEntity(buyerEntity);
+        try {
+            return ResponseEntity.ok(buyerService.putBuyerEntity(buyerEntity));
+        }
+        catch (HttpClientErrorException e){
+            return ResponseEntity.status(e.getStatusCode()).body(e.toString());
+        }
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteBuyerEntity(@RequestParam String login) {
-        return buyerService.deleteBuyerEntity(login);
+        try {
+            buyerService.deleteBuyerEntity(login);
+            return ResponseEntity.ok("OK");
+        }
+        catch (HttpClientErrorException e){
+            return ResponseEntity.status(e.getStatusCode()).body(e.toString());
+        }
     }
 
     @GetMapping("/all")
@@ -45,8 +65,4 @@ public class BuyerController {
         return buyerService.getAllBuyerEntity();
     }
 
-    @PutMapping("/newbalance") //test
-    public ResponseEntity<Object> balance(@RequestParam Double reduce, @RequestParam String login){
-        return buyerService.reduceBuyerEntityBalance(reduce, login);
-    }
 }

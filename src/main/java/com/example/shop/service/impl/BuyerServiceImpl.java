@@ -3,9 +3,10 @@ package com.example.shop.service.impl;
 import com.example.shop.repository.BuyerRepository;
 import com.example.shop.repository.model.BuyerEntity;
 import com.example.shop.service.BuyerService;
+import javassist.NotFoundException;
+import org.omg.CORBA.BAD_OPERATION;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -21,53 +22,36 @@ public class BuyerServiceImpl implements BuyerService {
         this.buyerRepository = buyerRepository;
     }
 
-    public ResponseEntity<BuyerEntity> findBylogin(String login) {
+    public BuyerEntity findBylogin(String login) throws HttpClientErrorException{
         Optional<BuyerEntity> optionalBuyerEntity = buyerRepository.findById(login);
-        if (optionalBuyerEntity.isPresent()){
-            BuyerEntity buyerEntity = optionalBuyerEntity.get();
-            return ResponseEntity.ok(buyerEntity);
-        }
-        else {
-            return ResponseEntity.of(optionalBuyerEntity);
-        }
+        if (!optionalBuyerEntity.isPresent()) throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        return optionalBuyerEntity.get();
     }
 
-    public ResponseEntity<Object> saveBuyerEntity(BuyerEntity buyerEntity){
-        if (buyerRepository.existsById(buyerEntity.getLogin())){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No");
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).body(buyerRepository.save(buyerEntity));
+    public BuyerEntity saveBuyerEntity(BuyerEntity buyerEntity) throws HttpClientErrorException {
+        if (buyerRepository.existsById(buyerEntity.getLogin())) throw new HttpClientErrorException(HttpStatus.BAD_REQUEST);
+        return buyerRepository.save(buyerEntity);
     }
 
-    public ResponseEntity<Object> putBuyerEntity(BuyerEntity buyerEntity){ //переделать
-        if (buyerRepository.existsById(buyerEntity.getLogin())){
-            buyerRepository.deleteById(buyerEntity.getLogin());
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(buyerRepository.save(buyerEntity));
+    public BuyerEntity putBuyerEntity(BuyerEntity buyerEntity) throws HttpClientErrorException{
+        if (buyerRepository.existsById(buyerEntity.getLogin())) throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        return buyerRepository.save(buyerEntity);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found");
-    }
 
-    public ResponseEntity<String> deleteBuyerEntity(String login){
-        if (buyerRepository.existsById(login)) {
-            buyerRepository.deleteById(login);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body("OK (CODE 200)\n");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("(CODE 400)\n");
+    public void deleteBuyerEntity(String login) throws HttpClientErrorException{
+        if (!buyerRepository.existsById(login)) throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        buyerRepository.deleteById(login);
     }
 
     public List<BuyerEntity> getAllBuyerEntity(){
         return (List<BuyerEntity>)buyerRepository.findAll();
     }
 
-    public ResponseEntity<Object> reduceBuyerEntityBalance(Double reduce, String login) throws ArithmeticException, HttpClientErrorException {
-        if (buyerRepository.existsById(login)){
-            double oldBalance = buyerRepository.findById(login).get().getBalance();
-            if (oldBalance >= reduce) {
-                BuyerEntity buyerEntity = new BuyerEntity(login,buyerRepository.findById(login).get().getAddress(),oldBalance-reduce);
-                return ResponseEntity.ok(buyerRepository.save(buyerEntity));
-            }
-            else throw new ArithmeticException();
-        }
-        throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+    public BuyerEntity reduceBuyerEntityBalance(Double reduce, String login) throws ArithmeticException, HttpClientErrorException {
+        if (!buyerRepository.existsById(login))  throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
+        double oldBalance = buyerRepository.findById(login).get().getBalance();
+        if (oldBalance < reduce) throw new ArithmeticException();
+        BuyerEntity buyerEntity = new BuyerEntity(login,buyerRepository.findById(login).get().getAddress(),oldBalance-reduce);
+        return buyerRepository.save(buyerEntity);
     }
 }
