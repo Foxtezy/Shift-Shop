@@ -3,6 +3,7 @@ package com.example.shop.controller;
 
 import com.example.shop.repository.model.BuyerEntity;
 import com.example.shop.service.BuyerService;
+import com.example.shop.service.dto.BuyerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +62,7 @@ public class BuyerController {
     }
 
     @GetMapping("/all")
-    public List<BuyerEntity> getAllBuyerEntity(){
+    public List<BuyerDto> getAllBuyerEntity(){
         return buyerService.getAllBuyerEntity();
     }
 

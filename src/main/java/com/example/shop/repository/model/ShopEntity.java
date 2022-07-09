@@ -1,10 +1,14 @@
 package com.example.shop.repository.model;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "shop")
-public class ShopEntity { //надо назвать адекватно
+@Getter @Setter
+public class ShopEntity {
     @Id
     @GeneratedValue
     @Column(name = "prod_id", nullable = false)
@@ -18,37 +22,5 @@ public class ShopEntity { //надо назвать адекватно
 
     @Column(name = "amount", nullable = false)
     private Integer amount;
-
-    public Long getProdId() {
-        return prodId;
-    }
-
-    public void setProdId(Long prodId) {
-        this.prodId = prodId;
-    }
-
-    public String getWare() {
-        return ware;
-    }
-
-    public void setWare(String ware) {
-        this.ware = ware;
-    }
-
-    public String getStore() {
-        return store;
-    }
-
-    public void setStore(String store) {
-        this.store = store;
-    }
-
-    public Integer getAmount() {
-        return amount;
-    }
-
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
 
 }

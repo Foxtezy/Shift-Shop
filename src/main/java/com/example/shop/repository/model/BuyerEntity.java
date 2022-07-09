@@ -1,11 +1,15 @@
 package com.example.shop.repository.model;
 
+import jdk.nashorn.internal.objects.annotations.Constructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "buyers")
+@Getter @Setter @NoArgsConstructor
 public class BuyerEntity {
-
     @Id
     @Column(name = "login", nullable = false)
     private String login;
@@ -16,37 +20,9 @@ public class BuyerEntity {
     @Column(name = "balance", nullable = false)
     private Double balance;
 
-
-    public BuyerEntity() {
-    }
-
     public BuyerEntity(String login, String address, Double balance) {
         this.login = login;
         this.address = address;
-        this.balance = balance;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
         this.balance = balance;
     }
 }
