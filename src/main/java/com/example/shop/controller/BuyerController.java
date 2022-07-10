@@ -1,9 +1,12 @@
 package com.example.shop.controller;
 
 
+
 import com.example.shop.repository.model.BuyerEntity;
 import com.example.shop.service.BuyerService;
-import com.example.shop.service.dto.BuyerDto;
+import com.example.shop.model.BuyerDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,12 @@ public class BuyerController {
         this.buyerService = buyerService;
     }
 
+    @Operation(summary = "foo", description = "bar")
+    @ApiResponse(responseCode = "404", description = "foo")
     @GetMapping
     public ResponseEntity<Object> getByLogin(@RequestParam String login) {
         try {
-            return ResponseEntity.ok(buyerService.findBylogin(login));
+            return ResponseEntity.status(200).body(buyerService.findByemail(login));
         }
         catch (HttpClientErrorException e){
             return ResponseEntity.status(e.getStatusCode()).body(e.toString());
@@ -31,9 +36,9 @@ public class BuyerController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> saveBuyerEntity(@RequestBody BuyerEntity buyerEntity) {
+    public ResponseEntity<Object> saveBuyerEntity(@RequestBody BuyerDto buyerDto) {
         try {
-            return ResponseEntity.ok(buyerService.saveBuyerEntity(buyerEntity));
+            return ResponseEntity.ok(buyerService.saveBuyerEntity(buyerDto));
         }
         catch (HttpClientErrorException e){
             return ResponseEntity.status(e.getStatusCode()).body(e.toString());
@@ -65,5 +70,7 @@ public class BuyerController {
     public List<BuyerDto> getAllBuyerEntity(){
         return buyerService.getAllBuyerEntity();
     }
+
+
 
 }

@@ -1,22 +1,29 @@
 package com.example.shop.service.mapper;
 
 import com.example.shop.repository.model.BuyerEntity;
-import com.example.shop.service.dto.BuyerDto;
+import com.example.shop.model.BuyerDto;
+import com.example.shop.repository.model.OrderEntity;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class BuyerMapper {
-    public static BuyerDto mapToBuyerDto(@NotNull BuyerEntity buyerEntity){
+    public BuyerDto mapToBuyerDto(@NotNull BuyerEntity buyerEntity){
         BuyerDto buyerDto = new BuyerDto();
-        buyerDto.setLogin(buyerEntity.getLogin());
+        buyerDto.setLogin(buyerEntity.getEmail());
         buyerDto.setAddress(buyerEntity.getAddress());
         buyerDto.setBalance(buyerEntity.getBalance());
+        buyerDto.setName(buyerEntity.getName());
         return buyerDto;
     }
-    public static BuyerEntity mapToBuyerEntity(@NotNull BuyerDto buyerDto){
+    public BuyerEntity mapToBuyerEntity(@NotNull BuyerDto buyerDto){
         BuyerEntity buyerEntity = new BuyerEntity();
-        buyerEntity.setLogin(buyerDto.getLogin());
-        buyerEntity.setAddress(buyerEntity.getAddress());
-        buyerEntity.setBalance(buyerEntity.getBalance());
+        buyerEntity.setEmail(buyerDto.getLogin());
+        buyerEntity.setAddress(buyerDto.getAddress());
+        buyerEntity.setBalance(buyerDto.getBalance());
+        buyerEntity.setName(buyerDto.getName());
         return buyerEntity;
     }
 }

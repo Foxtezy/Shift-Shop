@@ -1,20 +1,20 @@
 package com.example.shop.service;
 
+import com.example.shop.model.BuyDto;
+import com.example.shop.model.OrderInDto;
+import com.example.shop.model.OrderOutDto;
 import com.example.shop.repository.model.BuyerEntity;
-import com.example.shop.service.dto.BuyerDto;
-import javassist.NotFoundException;
-import org.omg.CORBA.BAD_OPERATION;
+import com.example.shop.model.BuyerDto;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 
 
 public interface BuyerService {
-    BuyerDto findBylogin(String login) throws HttpClientErrorException;
-    BuyerDto saveBuyerEntity(BuyerEntity buyerEntity) throws HttpClientErrorException;
+    BuyerDto findByemail(String login) throws HttpClientErrorException;
+    BuyerDto saveBuyerEntity(BuyerDto buyerDto) throws HttpClientErrorException;
     BuyerDto putBuyerEntity(BuyerEntity buyerEntity) throws HttpClientErrorException;
     void deleteBuyerEntity(String login) throws HttpClientErrorException;
     List<BuyerDto> getAllBuyerEntity();
-    BuyerDto reduceBuyerEntityBalance(Double reduce, String login) throws ArithmeticException, HttpClientErrorException;
-
+    Integer updateBalance(BuyDto buyDto, Double newBalance);
 }
