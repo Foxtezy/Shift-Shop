@@ -5,21 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 @Data @AllArgsConstructor
-public class BuyDto {
-
-    @Schema(example = "nmahov2003@gmail.com", required = true)
-    String email;
-
+public class ShopDto {
     @Schema(example = "shawarma", required = true)
     String ware;
-
     @Schema(example = "babka", required = true)
     String store;
-
-    @Positive
-    @Schema(example = "3", required = true)
+    @Schema(example = "10", required = true)
     Integer amount;
 }

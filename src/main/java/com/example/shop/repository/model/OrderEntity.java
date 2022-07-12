@@ -27,6 +27,8 @@ public class OrderEntity{
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
+    @Column(name = "store", nullable = false)
+    private String store;
     @Column(name = "order_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
@@ -34,12 +36,13 @@ public class OrderEntity{
     @Column(name = "buyer_email", nullable = false)
     private String buyerEmail;
 
-    public OrderEntity(String ware, Double price, Integer amount, OrderStatus orderStatus, String buyerEmail) {
+    public OrderEntity(String ware, Double price, Integer amount, OrderStatus orderStatus, String buyerEmail, String store) {
         this.ware = ware;
         this.price = price;
         this.amount = amount;
         this.orderStatus = orderStatus;
         this.buyerEmail = buyerEmail;
+        this.store = store;
     }
 }
 

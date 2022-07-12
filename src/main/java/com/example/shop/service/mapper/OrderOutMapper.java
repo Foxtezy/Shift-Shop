@@ -13,7 +13,8 @@ public class OrderOutMapper {
                             orderEntity.getWare(),
                             orderEntity.getPrice(),
                             orderEntity.getAmount(),
-                            orderEntity.getOrderStatus());
+                            orderEntity.getOrderStatus(),
+                            orderEntity.getStore());
     }
 
 
