@@ -11,6 +11,7 @@ public class OrderInMapper {
                 orderInDto.getPrice(),
                 orderInDto.getAmount(),
                 orderInDto.getOrderStatus(),
-                orderInDto.getBuyerEmail());
+                orderInDto.getBuyerEmail(),
+                orderInDto.getStore());
     }
 }
