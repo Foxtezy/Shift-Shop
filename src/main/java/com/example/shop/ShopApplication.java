@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(
         info = @Info(
                 title = "Shop API",
-                version = "0.9",
+                version = "1.0",
                 description = "REST API for shops",
                 contact = @Contact(name = "Николай Махов", email = "nmahov2003@gmail.com")
         )

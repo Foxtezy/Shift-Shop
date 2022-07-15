@@ -1,11 +1,11 @@
-package com.example.shop.service.mapper;
+package com.example.shop.component;
 
 
 import com.example.shop.model.ShopDto;
 import com.example.shop.repository.model.ShopEntity;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class ShopMapper {
 
     public ShopDto mapToShopDto(ShopEntity shopEntity){

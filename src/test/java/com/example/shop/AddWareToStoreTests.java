@@ -2,6 +2,7 @@ package com.example.shop;
 
 
 import com.example.shop.model.ShopDto;
+import com.example.shop.repository.BuyerRepository;
 import com.example.shop.repository.ProductRepository;
 import com.example.shop.repository.ShopRepository;
 import com.example.shop.repository.StoreRepository;

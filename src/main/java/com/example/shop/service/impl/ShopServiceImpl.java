@@ -7,7 +7,7 @@ import com.example.shop.repository.ShopRepository;
 import com.example.shop.repository.StoreRepository;
 import com.example.shop.repository.model.ShopEntity;
 import com.example.shop.service.ShopService;
-import com.example.shop.service.mapper.ShopMapper;
+import com.example.shop.component.ShopMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,11 +43,11 @@ public class ShopServiceImpl implements ShopService {
             shopRepository.save(shopMapper.mapToShopEntity(shopDto));
             return ResponseEntity.status(HttpStatus.CREATED).body("Create new position in '" + shopDto.getStore() + "' store");
         }
-
-        if (shopEntity.get().getAmount() + shopDto.getAmount() < 0) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not enough wares");
-        if (shopEntity.get().getAmount() + shopDto.getAmount() == 0) shopRepository.deleteById(shopEntity.get().getProdId());
-        else shopRepository.updateAmount(shopEntity.get().getProdId() ,shopEntity.get().getAmount() + shopDto.getAmount());
-        return ResponseEntity.ok("Add wares in '" + shopDto.getStore() + "' store\n Now " + (shopEntity.get().getAmount() + shopDto.getAmount()) + " wares");
+        int newAmount = shopEntity.get().getAmount() + shopDto.getAmount();
+        if (newAmount < 0) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not enough wares");
+        if (newAmount == 0) shopRepository.deleteById(shopEntity.get().getProdId());
+        else shopRepository.updateAmount(shopEntity.get().getProdId() ,newAmount);
+        return ResponseEntity.ok("Add wares in '" + shopDto.getStore() + "' store\n Now " + newAmount + " wares");
     }
 
     public List<StoreByWareDto> getStoresByWare(String ware){

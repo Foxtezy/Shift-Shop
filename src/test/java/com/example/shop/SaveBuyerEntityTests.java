@@ -47,12 +47,12 @@ class SaveBuyerEntityTests {
     @Test
     public void saveValidUser(){
         Mockito.when(buyerRepository.existsById("nmahov2003@gmail.com")).thenReturn(false);
-        BuyerDto buyerDto = new BuyerDto("nmahov2003@gmail.com", "", "Sample street", 100.2);
+        BuyerDto buyerDto = new BuyerDto("nmahov2003@gmail.com", "Kolacom", "Sample street", 100.2);
         try {
             buyerService.saveBuyerEntity(buyerDto);
         }
         catch (ResponseStatusException e){
-            Assert.fail();
+            Assert.fail(e.toString());
         }
 
     }

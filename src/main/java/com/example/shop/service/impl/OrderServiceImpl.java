@@ -10,12 +10,11 @@ import com.example.shop.repository.model.BuyerEntity;
 import com.example.shop.repository.model.ProductEntity;
 import com.example.shop.service.OrderService;
 import com.example.shop.service.ShopService;
-import com.example.shop.service.mapper.OrderInMapper;
-import com.example.shop.service.mapper.OrderOutMapper;
+import com.example.shop.component.OrderInMapper;
+import com.example.shop.component.OrderOutMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -29,10 +28,11 @@ public class OrderServiceImpl implements OrderService {
     private final BuyerRepository buyerRepository;
     private final ProductRepository productRepository;
     private final ShopService shopService;
+    private final StoreRepository storeRepository;
     private final OrderOutMapper orderOutMapper;
     private final OrderInMapper orderInMapper;
 
-    private final StoreRepository storeRepository;
+
 
     @Autowired
     public OrderServiceImpl(OrderRepository orderRepository, OrderOutMapper orderOutMapper,
@@ -64,9 +64,9 @@ public class OrderServiceImpl implements OrderService {
         if (!buyerEntity.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This buyer wasn't found");
         if (!productEntity.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "This ware wasn't found");
         if (buyerEntity.get().getBalance() < buyDto.getAmount()*productEntity.get().getPrice()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "This buyer doesn't have enough money");
-
         shopService.addWareToStore(new ShopDto(buyDto.getWare(), buyDto.getStore(), (-1)*buyDto.getAmount()));
-        buyerRepository.updateBalance(buyDto.getEmail(), buyerEntity.get().getBalance()-buyDto.getAmount()*productEntity.get().getPrice());
+        Double newBalance = buyerEntity.get().getBalance()-buyDto.getAmount()*productEntity.get().getPrice();
+        buyerRepository.updateBalance(buyDto.getEmail(), newBalance);
         saveOrderEntity(new OrderInDto(buyDto.getWare(), productEntity.get().getPrice(), buyDto.getAmount(),
                         OrderStatus.REGISTRATION, buyDto.getEmail(), buyDto.getStore()));
 

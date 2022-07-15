@@ -5,7 +5,7 @@ import com.example.shop.repository.BuyerRepository;
 import com.example.shop.repository.model.BuyerEntity;
 import com.example.shop.service.BuyerService;
 import com.example.shop.model.BuyerDto;
-import com.example.shop.service.mapper.BuyerMapper;
+import com.example.shop.component.BuyerMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

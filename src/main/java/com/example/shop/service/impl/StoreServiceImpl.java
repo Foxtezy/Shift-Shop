@@ -4,7 +4,7 @@ import com.example.shop.model.StoreDto;
 import com.example.shop.repository.StoreRepository;
 import com.example.shop.repository.model.StoreEntity;
 import com.example.shop.service.StoreService;
-import com.example.shop.service.mapper.StoreMapper;
+import com.example.shop.component.StoreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

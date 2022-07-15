@@ -4,7 +4,7 @@ import com.example.shop.model.ProductDto;
 import com.example.shop.repository.ProductRepository;
 import com.example.shop.repository.model.ProductEntity;
 import com.example.shop.service.ProductService;
-import com.example.shop.service.mapper.ProductMapper;
+import com.example.shop.component.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

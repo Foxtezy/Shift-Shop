@@ -1,14 +1,12 @@
-package com.example.shop.service.mapper;
+package com.example.shop.component;
 
 import com.example.shop.repository.model.BuyerEntity;
 import com.example.shop.model.BuyerDto;
-import com.example.shop.repository.model.OrderEntity;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-import java.util.List;
 
-@Service
+@Component
 public class BuyerMapper {
     public BuyerDto mapToBuyerDto(@NotNull BuyerEntity buyerEntity){
         BuyerDto buyerDto = new BuyerDto();
